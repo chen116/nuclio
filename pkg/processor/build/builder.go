@@ -400,7 +400,7 @@ func (b *Builder) getImage() string {
 	var imageName string
 
 	if b.options.FunctionConfig.Spec.Build.Image == "" {
-		repository := "nuclio/"
+		repository := "chen116/"
 
 		// try to see if the registry URL has a repository specified (e.g. localhost:5000/foo). If so,
 		// don't use "nuclio/", just use that repository

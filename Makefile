@@ -151,14 +151,14 @@ nuctl: ensure-gopath
 processor: ensure-gopath
 	docker build --file cmd/processor/Dockerfile --tag nuclio/processor:$(NUCLIO_DOCKER_IMAGE_TAG) .
 
-IMAGES_TO_PUSH += nuclio/processor:$(NUCLIO_DOCKER_IMAGE_TAG)
+IMAGES_TO_PUSH += chen116/processor:$(NUCLIO_DOCKER_IMAGE_TAG)
 
 #
 # Dockerized services
 #
 
 # Controller
-NUCLIO_DOCKER_CONTROLLER_IMAGE_NAME=nuclio/controller:$(NUCLIO_DOCKER_IMAGE_TAG)
+NUCLIO_DOCKER_CONTROLLER_IMAGE_NAME=chen116/controller:$(NUCLIO_DOCKER_IMAGE_TAG)
 
 controller: ensure-gopath
 	docker build $(NUCLIO_BUILD_ARGS_VERSION_INFO_FILE) \
@@ -169,7 +169,7 @@ controller: ensure-gopath
 IMAGES_TO_PUSH += $(NUCLIO_DOCKER_CONTROLLER_IMAGE_NAME)
 
 # Dashboard
-NUCLIO_DOCKER_DASHBOARD_IMAGE_NAME=nuclio/dashboard:$(NUCLIO_DOCKER_IMAGE_TAG)
+NUCLIO_DOCKER_DASHBOARD_IMAGE_NAME=chen116/dashboard:$(NUCLIO_DOCKER_IMAGE_TAG)
 
 dashboard: ensure-gopath
 	docker build $(NUCLIO_BUILD_ARGS_VERSION_INFO_FILE) \
@@ -185,7 +185,7 @@ IMAGES_TO_PUSH += $(NUCLIO_DOCKER_DASHBOARD_IMAGE_NAME)
 
 # Python
 NUCLIO_DOCKER_HANDLER_BUILDER_PYTHON_ONBUILD_IMAGE_NAME=\
-nuclio/handler-builder-python-onbuild:$(NUCLIO_DOCKER_IMAGE_TAG)
+chen116/handler-builder-python-onbuild:$(NUCLIO_DOCKER_IMAGE_TAG)
 
 handler-builder-python-onbuild:
 	docker build --build-arg NUCLIO_ARCH=$(NUCLIO_ARCH) --build-arg NUCLIO_LABEL=$(NUCLIO_LABEL) \
@@ -196,7 +196,7 @@ IMAGES_TO_PUSH += $(NUCLIO_DOCKER_HANDLER_BUILDER_PYTHON_ONBUILD_IMAGE_NAME)
 
 # Go
 NUCLIO_DOCKER_HANDLER_BUILDER_GOLANG_ONBUILD_IMAGE_NAME=\
-nuclio/handler-builder-golang-onbuild:$(NUCLIO_DOCKER_IMAGE_TAG)
+chen116/handler-builder-golang-onbuild:$(NUCLIO_DOCKER_IMAGE_TAG)
 
 NUCLIO_DOCKER_HANDLER_BUILDER_GOLANG_ONBUILD_ALPINE_IMAGE_NAME=\
 $(NUCLIO_DOCKER_HANDLER_BUILDER_GOLANG_ONBUILD_IMAGE_NAME)-alpine
@@ -214,7 +214,7 @@ IMAGES_TO_PUSH += $(NUCLIO_DOCKER_HANDLER_BUILDER_GOLANG_ONBUILD_IMAGE_NAME) \
 	$(NUCLIO_DOCKER_HANDLER_BUILDER_GOLANG_ONBUILD_ALPINE_IMAGE_NAME)
 
 # Pypy
-NUCLIO_DOCKER_PROCESSOR_PYPY_JESSIE_IMAGE_NAME=nuclio/processor-pypy2-5.9-jessie:$(NUCLIO_DOCKER_IMAGE_TAG)
+NUCLIO_DOCKER_PROCESSOR_PYPY_JESSIE_IMAGE_NAME=chen116/processor-pypy2-5.9-jessie:$(NUCLIO_DOCKER_IMAGE_TAG)
 
 processor-pypy:
 	docker build $(NUCLIO_BUILD_ARGS) \
@@ -225,7 +225,7 @@ processor-pypy:
 
 IMAGES_TO_PUSH += $(NUCLIO_DOCKER_PROCESSOR_PYPY_JESSIE_IMAGE_NAME)
 
-NUCLIO_DOCKER_HANDLER_BUILDER_PYPY_ONBUILD_IMAGE_NAME=nuclio/handler-pypy2-5.9-jessie:$(NUCLIO_DOCKER_IMAGE_TAG)
+NUCLIO_DOCKER_HANDLER_BUILDER_PYPY_ONBUILD_IMAGE_NAME=chen116/handler-pypy2-5.9-jessie:$(NUCLIO_DOCKER_IMAGE_TAG)
 
 handler-pypy:
 	docker build \
@@ -237,7 +237,7 @@ IMAGES_TO_PUSH += $(NUCLIO_DOCKER_HANDLER_BUILDER_PYPY_ONBUILD_IMAGE_NAME)
 
 # NodeJS
 NUCLIO_DOCKER_HANDLER_BUILDER_NODEJS_ONBUILD_IMAGE_NAME=\
-nuclio/handler-builder-nodejs-onbuild:$(NUCLIO_DOCKER_IMAGE_TAG)
+chen116/handler-builder-nodejs-onbuild:$(NUCLIO_DOCKER_IMAGE_TAG)
 
 handler-builder-nodejs-onbuild:
 	docker build --build-arg NUCLIO_ARCH=$(NUCLIO_ARCH) --build-arg NUCLIO_LABEL=$(NUCLIO_LABEL) \
@@ -248,7 +248,7 @@ IMAGES_TO_PUSH += $(NUCLIO_DOCKER_HANDLER_BUILDER_NODEJS_ONBUILD_IMAGE_NAME)
 
 # Ruby
 NUCLIO_DOCKER_HANDLER_BUILDER_RUBY_ONBUILD_IMAGE_NAME=\
-nuclio/handler-builder-ruby-onbuild:$(NUCLIO_DOCKER_IMAGE_TAG)
+chen116/handler-builder-ruby-onbuild:$(NUCLIO_DOCKER_IMAGE_TAG)
 
 handler-builder-ruby-onbuild:
 	docker build --build-arg NUCLIO_ARCH=$(NUCLIO_ARCH) --build-arg NUCLIO_LABEL=$(NUCLIO_LABEL) \
@@ -259,7 +259,7 @@ IMAGES_TO_PUSH += $(NUCLIO_DOCKER_HANDLER_BUILDER_RUBY_ONBUILD_IMAGE_NAME)
 
 
 # dotnet core
-NUCLIO_DOCKER_HANDLER_BUILDER_DOTNETCORE_ONBUILD_IMAGE_NAME=nuclio/handler-builder-dotnetcore-onbuild:$(NUCLIO_DOCKER_IMAGE_TAG)
+NUCLIO_DOCKER_HANDLER_BUILDER_DOTNETCORE_ONBUILD_IMAGE_NAME=chen116/handler-builder-dotnetcore-onbuild:$(NUCLIO_DOCKER_IMAGE_TAG)
 NUCLIO_ONBUILD_DOTNETCORE_DOCKERFILE_PATH = pkg/processor/build/runtime/dotnetcore/docker/onbuild/Dockerfile
 
 handler-builder-dotnetcore-onbuild: processor
@@ -271,7 +271,7 @@ IMAGES_TO_PUSH += $(NUCLIO_DOCKER_HANDLER_BUILDER_DOTNETCORE_ONBUILD_IMAGE_NAME)
 
 # java
 NUCLIO_DOCKER_HANDLER_BUILDER_JAVA_ONBUILD_IMAGE_NAME=\
-nuclio/handler-builder-java-onbuild:$(NUCLIO_DOCKER_IMAGE_TAG)
+chen116/handler-builder-java-onbuild:$(NUCLIO_DOCKER_IMAGE_TAG)
 
 handler-builder-java-onbuild:
 	docker build --build-arg NUCLIO_ARCH=$(NUCLIO_ARCH) --build-arg NUCLIO_LABEL=$(NUCLIO_LABEL) \
@@ -292,7 +292,7 @@ lint: ensure-gopath
 
 	@echo Verifying imports...
 	$(GOPATH)/bin/impi \
-		--local github.com/nuclio/nuclio/ \
+		--local github.com/chen116/nuclio/ \
 		--scheme stdLocalThirdParty \
 		--skip pkg/platform/kube/apis \
 		--skip pkg/platform/kube/client \

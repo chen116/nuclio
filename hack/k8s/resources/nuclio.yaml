@@ -1,4 +1,4 @@
-# Copyright 2017 The Nuclio Authors.
+# Copyright 2017 The chen116 Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,9 +19,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 description: Function resource
 kind: CustomResourceDefinition
 metadata:
-  name: functions.nuclio.io
+  name: functions.chen116.io
 spec:
-  group: nuclio.io
+  group: chen116.io
   names:
     kind: Function
     plural: functions
@@ -36,9 +36,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 description: Project resource
 kind: CustomResourceDefinition
 metadata:
-  name: projects.nuclio.io
+  name: projects.chen116.io
 spec:
-  group: nuclio.io
+  group: chen116.io
   names:
     kind: Project
     plural: projects
@@ -53,9 +53,9 @@ apiVersion: apiextensions.k8s.io/v1beta1
 description: Function event resource
 kind: CustomResourceDefinition
 metadata:
-  name: functionevents.nuclio.io
+  name: functionevents.chen116.io
 spec:
-  group: nuclio.io
+  group: chen116.io
   names:
     kind: FunctionEvent
     plural: functionevents
@@ -65,71 +65,71 @@ spec:
 
 ---
 
-# All Nuclio services are bound to the "nuclio" service account. In RBAC enabled setups, this service account is
+# All chen116 services are bound to the "chen116" service account. In RBAC enabled setups, this service account is
 # bound to specific roles limiting what the services can do
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: nuclio
-  namespace: nuclio
+  name: chen116
+  namespace: chen116
 
 ---
 
-# The nuclio controller listens for changes on the function CRD and creates the proper deployment, service, etc
+# The chen116 controller listens for changes on the function CRD and creates the proper deployment, service, etc
 # for the function
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: nuclio-controller
-  namespace: nuclio
+  name: chen116-controller
+  namespace: chen116
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        nuclio.io/env: test
-        nuclio.io/app: controller
-        nuclio.io/class: service
+        chen116.io/env: test
+        chen116.io/app: controller
+        chen116.io/class: service
       annotations:
-        nuclio.io/version: 0.5.7
+        chen116.io/version: latest
     spec:
       containers:
-      - name: nuclio-controller
-        image: nuclio/controller:0.5.7-amd64
+      - name: chen116-controller
+        image: chen116/controller:latest-amd64
         env:
-        - name: NUCLIO_CONTROLLER_IMAGE_PULL_SECRETS
+        - name: chen116_CONTROLLER_IMAGE_PULL_SECRETS
           value: registry-credentials
-      serviceAccountName: nuclio
+      serviceAccountName: chen116
 
 ---
 
-# The Nuclio dashboard offers a UI to manage functions
+# The chen116 dashboard offers a UI to manage functions
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: nuclio-dashboard
-  namespace: nuclio
+  name: chen116-dashboard
+  namespace: chen116
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        nuclio.io/env: test
-        nuclio.io/app: dashboard
-        nuclio.io/class: service
+        chen116.io/env: test
+        chen116.io/app: dashboard
+        chen116.io/class: service
       annotations:
-        nuclio.io/version: 0.5.7
+        chen116.io/version: latest
     spec:
       containers:
-      - name: nuclio-dashboard
-        image: nuclio/dashboard:0.5.7-amd64
+      - name: chen116-dashboard
+        image: chen116/dashboard:latest-amd64
         ports:
         - containerPort: 8070
         volumeMounts:
         - mountPath: /var/run/docker.sock
           name: docker-sock
         - name: registry-credentials
-          mountPath: "/etc/nuclio/dashboard/registry-credentials"
+          mountPath: "/etc/chen116/dashboard/registry-credentials"
           readOnly: true
       volumes:
       - name: docker-sock
@@ -139,16 +139,16 @@ spec:
         secret:
           secretName: registry-credentials
           optional: true
-      serviceAccountName: nuclio
+      serviceAccountName: chen116
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nuclio-dashboard
-  namespace: nuclio
+  name: chen116-dashboard
+  namespace: chen116
 spec:
   selector:
-    nuclio.io/app: dashboard
+    chen116.io/app: dashboard
   ports:
   - name: admin
     port: 8070

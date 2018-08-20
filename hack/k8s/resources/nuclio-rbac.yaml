@@ -18,8 +18,8 @@
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: Role
 metadata:
-  name: nuclio-function-deployer
-  namespace: nuclio
+  name: chen116-function-deployer
+  namespace: chen116
 rules:
 - apiGroups: [""]
   resources: ["services", "configmaps", "pods", "pods/log"]
@@ -36,21 +36,21 @@ rules:
 
 ---
 
-# Bind the "nuclio" service account (used by controller / playground) to the nuclio-function-deployer role,
+# Bind the "chen116" service account (used by controller / playground) to the chen116-function-deployer role,
 # allowing them to create deployments, services, etc
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
 metadata:
-  name: nuclio-function-deployer-rolebinding
-  namespace: nuclio
+  name: chen116-function-deployer-rolebinding
+  namespace: chen116
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: nuclio-function-deployer
+  name: chen116-function-deployer
 subjects:
 - kind: ServiceAccount
-  name: nuclio
-  namespace: nuclio
+  name: chen116
+  namespace: chen116
 
 ---
 
@@ -58,27 +58,27 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
-  name: nuclio-functioncr-admin
+  name: chen116-functioncr-admin
 rules:
-- apiGroups: ["nuclio.io"]
+- apiGroups: ["chen116.io"]
   resources: ["functions", "projects", "functionevents"]
   verbs: ["*"]
 
 ---
 
-# Bind the "nuclio" service account (used by controller / playground) to the nuclio-functioncr-admin role,
-# allowing them to create / delete function custom resource definitions in the "nuclio" namespace
+# Bind the "chen116" service account (used by controller / playground) to the chen116-functioncr-admin role,
+# allowing them to create / delete function custom resource definitions in the "chen116" namespace
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
-  name: nuclio-functioncr-admin-clusterrolebinding
+  name: chen116-functioncr-admin-clusterrolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: nuclio-functioncr-admin
+  name: chen116-functioncr-admin
 subjects:
 - kind: ServiceAccount
-  name: nuclio
-  namespace: nuclio
+  name: chen116
+  namespace: chen116
 
 ---

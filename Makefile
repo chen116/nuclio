@@ -149,7 +149,7 @@ nuctl: ensure-gopath
 	@ln -sF $(GOPATH)/bin/$(NUCTL_BIN_NAME) $(NUCTL_TARGET)
 
 processor: ensure-gopath
-	docker build --file cmd/processor/Dockerfile --tag nuclio/processor:$(NUCLIO_DOCKER_IMAGE_TAG) .
+	docker build --file cmd/processor/Dockerfile --tag chen116/processor:$(NUCLIO_DOCKER_IMAGE_TAG) .
 
 IMAGES_TO_PUSH += chen116/processor:$(NUCLIO_DOCKER_IMAGE_TAG)
 

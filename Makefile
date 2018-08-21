@@ -113,11 +113,11 @@ DOCKER_IMAGES_RULES = \
 	dashboard \
 	processor \
 	handler-builder-golang-onbuild \
-	handler-builder-java-onbuild \
-	handler-builder-ruby-onbuild \
-	handler-builder-python-onbuild \
-	handler-builder-dotnetcore-onbuild \
-	handler-builder-nodejs-onbuild
+	handler-builder-python-onbuild 
+	# handler-builder-java-onbuild \
+	# handler-builder-ruby-onbuild \
+	# handler-builder-dotnetcore-onbuild \
+	# handler-builder-nodejs-onbuild
 
 docker-images: ensure-gopath $(DOCKER_IMAGES_RULES)
 	@echo Done.

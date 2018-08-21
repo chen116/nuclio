@@ -1,0 +1,4 @@
+#replace all the com/chen116with com/nuclio in mac
+
+find . -type f -exec sed -i '' 's/com\/chen116/com\/nuclio/g' {} +
+find . -type f -print0 | xargs -0 sed -i "" "s/com\/chen116/com\/nuclio/g"

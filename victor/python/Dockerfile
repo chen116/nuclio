@@ -15,7 +15,7 @@ FROM ${NUCLIO_BASE_IMAGE}
 # Copy required objects from the suppliers
 COPY --from=builder /home/nuclio/bin/processor /usr/local/bin/processor
 COPY --from=uhttpc /home/nuclio/bin/uhttpc /usr/local/bin/uhttpc
-
+COPY --from=builder /home/nuclio/bin/py /opt/nuclio/
 # Readiness probe
 HEALTHCHECK --interval=1s --timeout=3s CMD /usr/local/bin/uhttpc --url http://127.0.0.1:8082/ready || exit 1
 

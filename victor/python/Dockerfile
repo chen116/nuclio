@@ -1,6 +1,6 @@
 ARG NUCLIO_LABEL=latest
 ARG NUCLIO_ARCH=amd64
-ARG NUCLIO_BASE_IMAGE=python:2.7-alpine
+ARG NUCLIO_BASE_IMAGE=alpine:3.6
 ARG NUCLIO_ONBUILD_IMAGE=chen116/handler-builder-python-onbuild:${NUCLIO_LABEL}-${NUCLIO_ARCH}
 
 # Supplies processor uhttpc, used for healthcheck

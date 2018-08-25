@@ -14,7 +14,6 @@ FROM ${NUCLIO_BASE_IMAGE}
 
 # Copy required objects from the suppliers
 COPY --from=builder /home/nuclio/bin/processor /usr/local/bin/processor
-COPY --from=builder /home/nuclio/bin/handler.so /opt/nuclio/handler.so
 COPY --from=uhttpc /home/nuclio/bin/uhttpc /usr/local/bin/uhttpc
 
 # Readiness probe
